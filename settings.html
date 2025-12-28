@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ImmoScan24 Settings</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      color: #333;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo {
+      width: 32px;
+      height: 32px;
+      background: #4CAF50;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+      border-radius: 4px;
+    }
+
+    .info-box {
+      background: #e7f3ff;
+      border-left: 4px solid #2196F3;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+    }
+
+    .info-box h3 {
+      margin-top: 0;
+      color: #1976D2;
+    }
+
+    .setting-group {
+      margin-bottom: 25px;
+      padding-bottom: 25px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .setting-group:last-of-type {
+      border-bottom: none;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #555;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .help-text {
+      font-size: 13px;
+      color: #666;
+      margin-top: 5px;
+      font-style: italic;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #4CAF50;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #45a049;
+    }
+
+    .btn-secondary {
+      background: #6c757d;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: #5a6268;
+    }
+
+    .btn-danger {
+      background: #dc3545;
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background: #c82333;
+    }
+
+    .status-message {
+      padding: 12px;
+      border-radius: 4px;
+      margin-top: 20px;
+      display: none;
+    }
+
+    .status-message.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .status-message.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .stats {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 4px;
+      margin-top: 20px;
+    }
+
+    .stats h3 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .stat-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    .stat-item:last-child {
+      border-bottom: none;
+    }
+
+    .stat-label {
+      color: #666;
+    }
+
+    .stat-value {
+      font-weight: 600;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>
+      <div class="logo">IS24</div>
+      ImmoScan24 Settings
+    </h1>
+
+    <div class="info-box">
+      <h3>How to Use</h3>
+      <p>Navigate to an immobilienscout24.de search results page and click the extension icon to start monitoring. The page will refresh periodically and you'll be notified when new listings appear.</p>
+    </div>
+
+    <form id="settings-form">
+      <div class="setting-group">
+        <label for="refreshInterval">Refresh Interval (seconds)</label>
+        <input type="number" id="refreshInterval" min="10" max="3600" required>
+        <div class="help-text">How often to refresh the page (10-3600 seconds)</div>
+      </div>
+
+      <div class="setting-group">
+        <label for="maxTimeSinceLastScan">Max Time Since Last Scan (minutes)</label>
+        <input type="number" id="maxTimeSinceLastScan" min="1" max="60" required>
+        <div class="help-text">Only trigger actions if last scan was within this time (1-60 minutes)</div>
+      </div>
+
+      <div class="setting-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="playSound">
+          <span>Play Sound on New Listings</span>
+        </label>
+        <div class="help-text">Play an audio alert when new listings are found</div>
+      </div>
+
+      <div class="setting-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="sendNotification">
+          <span>Send Browser Notification</span>
+        </label>
+        <div class="help-text">Show a browser notification when new listings are found</div>
+      </div>
+
+      <div class="setting-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="openInTab">
+          <span>Open New Listings in Tabs</span>
+        </label>
+        <div class="help-text">Automatically open new listings in background tabs</div>
+      </div>
+
+      <div class="setting-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="autoClickEnabled">
+          <span>Enable Auto-Click in New Tabs</span>
+        </label>
+        <div class="help-text">Automatically click elements in newly opened tabs</div>
+      </div>
+
+      <div class="setting-group">
+        <label for="firstClickSelector">First Click CSS Selector</label>
+        <input type="text" id="firstClickSelector" placeholder="e.g., #button1, .submit-btn">
+        <div class="help-text">CSS selector for the first element to click</div>
+      </div>
+
+      <div class="setting-group">
+        <label for="secondClickSelector">Second Click CSS Selector (Optional)</label>
+        <input type="text" id="secondClickSelector" placeholder="e.g., #confirm, .next-step">
+        <div class="help-text">CSS selector for the second element to click (leave empty to skip)</div>
+      </div>
+
+      <div class="setting-group">
+        <label for="clickDelay">Delay Between Clicks (milliseconds)</label>
+        <input type="number" id="clickDelay" min="100" max="10000" required>
+        <div class="help-text">Time to wait between first and second click (100-10000 ms)</div>
+      </div>
+
+      <div class="setting-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="captchaSoundEnabled">
+          <span>Play Alert Sound on Captcha Detection</span>
+        </label>
+        <div class="help-text">Play a different sound when captcha is detected</div>
+      </div>
+
+      <div class="setting-group">
+        <label>Captcha Detection Selectors</label>
+        <div class="help-text">CSS selectors to detect captcha (one per line)</div>
+        <textarea id="captchaSelectors" rows="5" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: monospace; font-size: 13px;" placeholder="iframe[src*='recaptcha']&#10;.g-recaptcha&#10;#captcha&#10;.captcha-container"></textarea>
+        <div class="help-text" style="margin-top: 5px;">Examples: iframe[src*="recaptcha"], .captcha, #hcaptcha</div>
+      </div>
+
+      <div class="setting-group">
+        <label for="captchaReminderInterval">Captcha Alert Repeat Interval (seconds)</label>
+        <input type="number" id="captchaReminderInterval" min="10" max="600" required>
+        <div class="help-text">How often to repeat the captcha alert while captcha is still present (10-600 seconds)</div>
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="btn-primary">Save Settings</button>
+        <button type="button" id="reset-btn" class="btn-secondary">Reset to Defaults</button>
+        <button type="button" id="clear-ids-btn" class="btn-danger">Clear Seen IDs</button>
+      </div>
+
+      <div id="status" class="status-message"></div>
+    </form>
+
+    <div class="stats">
+      <h3>Statistics</h3>
+      <div class="stat-item">
+        <span class="stat-label">Seen Expose IDs:</span>
+        <span class="stat-value" id="seen-count">Loading...</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Last Scan:</span>
+        <span class="stat-value" id="last-scan">Loading...</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="storage.js"></script>
+  <script src="settings.js"></script>
+</body>
+</html>

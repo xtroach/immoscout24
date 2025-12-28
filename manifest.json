@@ -1,0 +1,45 @@
+{
+  "manifest_version": 2,
+  "name": "ImmoScan24",
+  "version": "1.0.0",
+  "description": "Monitor immobilienscout24.de for new property listings",
+
+  "permissions": [
+    "storage",
+    "tabs",
+    "webNavigation",
+    "alarms",
+    "notifications"
+  ],
+
+  "background": {
+    "scripts": ["storage.js", "actions.js", "background.js"]
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.immobilienscout24.de/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+
+  "browser_action": {
+    "default_icon": {
+      "48": "icons/icon-disabled-48.png",
+      "96": "icons/icon-disabled-96.png"
+    },
+    "default_title": "ImmoScan24",
+    "default_popup": "popup.html"
+  },
+
+  "options_ui": {
+    "page": "settings.html",
+    "open_in_tab": true
+  },
+
+  "icons": {
+    "48": "icons/icon-48.png",
+    "96": "icons/icon-96.png"
+  }
+}
